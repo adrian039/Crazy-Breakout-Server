@@ -31,6 +31,8 @@ void Read(int socks, int client) {
 			exit(1);
 		}
 		cout << "Mensaje de cliente " << client << ":" << buffer1 << endl;
+		Jsons json1;
+		//json1.parse(buffer1);
 		writeMsg(socks, "hola\n");
 	}
 
