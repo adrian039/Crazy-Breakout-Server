@@ -10,6 +10,8 @@
 #include <iostream>
 #include <boost/thread.hpp>
 
+
+
 using namespace std;
 using namespace boost;
 
@@ -32,7 +34,7 @@ void Read(int socks, int client) {
 		}
 		cout << "Mensaje de cliente " << client << ":" << buffer1 << endl;
 		Jsons json1;
-		//json1.parse(buffer1);
+		json1.parseJson(buffer1);
 		writeMsg(socks, "hola\n");
 	}
 
@@ -41,6 +43,12 @@ void ThreadServer::Thread(int sock, int client) {
 
 	thread thread_1(Read, sock, client);
 	thread_1.join();
+
+	/*pthread_attr_t attr;
+	pthread_attr_init(&attr);
+	pthread_t tid;
+	//pthread_create(&tid,&attr,Read,(sock,client));*/
+
 }
 
 void writeMsg(int socket, std::string msg) {
