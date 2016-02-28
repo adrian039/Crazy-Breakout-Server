@@ -16,6 +16,7 @@ using namespace std;
 using namespace boost;
 
 void writeMsg(int socket, std::string msg);
+struct threadData { int param1; int param2; };
 
 ThreadServer::ThreadServer() {
 	// TODO Auto-generated constructor stub
@@ -23,7 +24,8 @@ ThreadServer::ThreadServer() {
 }
 
 void Read(int socks, int client) {
-	while (1) {
+	//struct threadData *myParams = (struct threadData*)thrData;
+
 		int n;
 		char buffer1[256];
 		bzero(buffer1, 256);
@@ -36,7 +38,6 @@ void Read(int socks, int client) {
 		Jsons json1;
 		json1.parseJson(buffer1);
 		writeMsg(socks, "hola\n");
-	}
 
 }
 void ThreadServer::Thread(int sock, int client) {
@@ -44,10 +45,13 @@ void ThreadServer::Thread(int sock, int client) {
 	thread thread_1(Read, sock, client);
 	thread_1.join();
 
-	/*pthread_attr_t attr;
+	/*struct threadData data = {sock,client};
+
+	pthread_attr_t attr;
 	pthread_attr_init(&attr);
 	pthread_t tid;
-	//pthread_create(&tid,&attr,Read,(sock,client));*/
+	pthread_create(&tid,&attr,Read,&data);*/
+
 
 }
 
