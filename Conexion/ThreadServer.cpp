@@ -5,10 +5,12 @@
  *      Author: adrian
  */
 
-#include "ThreadServer.h"
+#include<stdio.h>
+#include<stdlib.h>
 #include <string>
 #include <iostream>
 #include <boost/thread.hpp>
+#include "ThreadServer.h"
 
 
 
@@ -25,7 +27,7 @@ ThreadServer::ThreadServer() {
 
 void Read(int socks, int client) {
 	//struct threadData *myParams = (struct threadData*)thrData;
-
+	while(1){
 		int n;
 		char buffer1[256];
 		bzero(buffer1, 256);
@@ -36,8 +38,9 @@ void Read(int socks, int client) {
 		}
 		cout << "Mensaje de cliente " << client << ":" << buffer1 << endl;
 		Jsons json1;
-		json1.parseJson(buffer1);
+		json1.parseJson(buffer1, socks);
 		writeMsg(socks, "hola\n");
+	}
 
 }
 void ThreadServer::Thread(int sock, int client) {

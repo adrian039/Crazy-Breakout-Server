@@ -16,8 +16,8 @@ using namespace std;
 class Jsons {
 public:
 	Jsons();
-	string parseJson(char*);
-	Json::Value createJson(Json::Value, string, string);
+	string parseJson(char*,int);
+	Json::Value addToJson(Json::Value, string, string);
 };
 
 #endif /* JSONS_H_ */
