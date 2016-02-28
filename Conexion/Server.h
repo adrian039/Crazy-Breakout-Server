@@ -25,6 +25,7 @@
 
 
 
+
 using namespace std;
 
 class Server {
@@ -34,6 +35,7 @@ public:
 	char buffer[256];
 	struct sockaddr_in serv_addr, cli_addr;
 	socklen_t clilen;
+	//extern List<Json::Value> *_logUsers=new List<Json::Value>(NULL);
 
 };
 

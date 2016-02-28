@@ -62,6 +62,7 @@ void writeMsg(int socket, std::string msg) {
 	std::string var;
 	cout << "\nServidor: ";
 	cin >> var;
+	var=var+"\n";
 	write(socket, var.data(), var.length());
 	//write(socket, "\n", 2);
 }

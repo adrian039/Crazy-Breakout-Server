@@ -6,6 +6,7 @@
  *      Author: adrian
  */
 #include"Server.h"
+#include "GameLogic.h"
 
 
 using namespace std;
@@ -13,6 +14,7 @@ using namespace std;
 
 Server::Server() {
 	// TODO Auto-generated constructor stub
+
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockfd < 0) {
 		perror("ERROR opening socket");
@@ -38,6 +40,7 @@ Server::Server() {
 }
 int main() {
 	Server server;
+	GameLogic::Instance();
 	ThreadServer thread;
 	while (1) {
 		server.newsockfd = accept(server.sockfd,

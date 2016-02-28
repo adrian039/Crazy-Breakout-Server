@@ -14,7 +14,6 @@ Jsons::Jsons() {
 }
 
 string Jsons::parseJson(char* json, int socket){
-	GameLogic game;
 	Json::Value root;
 	Json::Reader reader;
 	std::string var;
@@ -24,8 +23,7 @@ string Jsons::parseJson(char* json, int socket){
 	if(key.compare("addUser")==0){
 		string usern=root["userName"].asString();
 		int score=root["score"].asInt();
-		cout<<usern<<"  "<<score<<endl;
-		game.addUser(socket, usern, score);
+		GameLogic::Instance()->addUser(socket,usern,score);
 	}
 	/*Json::Value prueb;
 	prueb["tipo"]="prueba";
