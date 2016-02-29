@@ -7,6 +7,7 @@
  */
 #include"Server.h"
 #include "GameLogic.h"
+#include"ThreadServer.h"
 
 
 using namespace std;
@@ -14,7 +15,7 @@ using namespace std;
 
 Server::Server() {
 	// TODO Auto-generated constructor stub
-
+	GameLogic::Instance();
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockfd < 0) {
 		perror("ERROR opening socket");
@@ -36,37 +37,36 @@ Server::Server() {
 	listen(sockfd, 5);
 	clilen = sizeof(cli_addr);
 	cout << "Servidor Iniciado..." << endl;
+		while (1) {
+			newsockfd = accept(sockfd,
+					(struct sockaddr *) &cli_addr, &clilen);
+			cliente = cliente + 1;
+			if (newsockfd < 0) {
+				perror("ERROR aceptando conexion");
+				exit(1);
+			}
+
+			pid = fork();
+
+			if (pid < 0) {
+				perror("ERROR on fork");
+				exit(1);
+			}
+
+			if (pid == 0) {
+				ThreadServer thread;
+				cout << "Nueva conexion " << cliente << endl;
+				cout<< newsockfd<<endl;
+				close(sockfd);
+				thread.Thread(newsockfd, cliente);
+				exit(0);
+			} else {
+				close(newsockfd);
+			}
+		}
 
 }
 int main() {
 	Server server;
-	GameLogic::Instance();
-	ThreadServer thread;
-	while (1) {
-		server.newsockfd = accept(server.sockfd,
-				(struct sockaddr *) &server.cli_addr, &server.clilen);
-		server.cliente = server.cliente + 1;
-		if (server.newsockfd < 0) {
-			perror("ERROR aceptando conexion");
-			exit(1);
-		}
-
-		server.pid = fork();
-
-		if (server.pid < 0) {
-			perror("ERROR on fork");
-			exit(1);
-		}
-
-		if (server.pid == 0) {
-
-			cout << "Nueva conexion " << server.cliente << endl;
-			close(server.sockfd);
-			thread.Thread(server.newsockfd, server.cliente);
-			exit(0);
-		} else {
-			close(server.newsockfd);
-		}
-	}
 }
 

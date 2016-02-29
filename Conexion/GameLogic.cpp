@@ -7,41 +7,46 @@
 
 #include "GameLogic.h"
 #include "Server.h"
+#include "LinkedList1.cpp"
 
-GameLogic* GameLogic::_pInstance=NULL;
+extern LinkedList1<Json::Value> *_logUsers;
+GameLogic* GameLogic::m_pInstance = NULL;
 
-GameLogic* GameLogic::Instance(){
-	if(!_pInstance)
-		_pInstance= new GameLogic;
-
-	return _pInstance;
-
+GameLogic* GameLogic::Instance()
+{
+   if (!m_pInstance){   // Only allow one instance of class to be generated.
+      m_pInstance = new GameLogic;
+   }
+   return m_pInstance;
 }
+
+
 void GameLogic::addUser(int pSocket, string pUserName, int pScore){
-	Jsons createJ;
+	_logUsers->display();
 	Json::Value newUser;
 	newUser["socket"]=pSocket;
 	newUser["userName"]=pUserName;
 	newUser["score"]=pScore;
-	this->_logUsers->push_back(newUser);
-	this->addScoreUser(pUserName, 235);
+	_logUsers->push_back(newUser);
+	GameLogic::Instance()->addScoreUser(pUserName, 235);
 }
 
 void GameLogic::addScoreUser(string pUsername, int pScore){
-	int usersLenght=this->_logUsers->getLenght();
+	int usersLenght=_logUsers->getLenght();
 	for(int i=0; i<usersLenght; i++){
-		Json::Value user=(Json::Value)this->_logUsers->getData(i);
+		Json::Value user=(Json::Value)_logUsers->getData(i);
 		string userName=user["userName"].asString();
 		if(userName.compare(pUsername)==0){
-			this->_logUsers->deleteNode(i);
+			_logUsers->deleteNode(i);
 			int score=user["score"].asInt();
 			user["score"]=score+pScore;
-			this->_logUsers->push_back(user);
+			_logUsers->push_back(user);
 			break;
 		}
 	}
-	this->_logUsers->display();
-	cout<<this->_logUsers->getLenght();
+	_logUsers->display();
+	cout<<_logUsers->getLenght()<<endl;
+	cout<<&_logUsers<<endl;
 
 }
 

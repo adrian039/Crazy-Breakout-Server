@@ -11,6 +11,7 @@
 #include <iostream>
 #include <boost/thread.hpp>
 #include "ThreadServer.h"
+#include<pthread.h>
 
 
 
@@ -26,7 +27,6 @@ ThreadServer::ThreadServer() {
 }
 
 void Read(int socks, int client) {
-	//struct threadData *myParams = (struct threadData*)thrData;
 	while(1){
 		int n;
 		char buffer1[256];
@@ -53,7 +53,7 @@ void ThreadServer::Thread(int sock, int client) {
 	pthread_attr_t attr;
 	pthread_attr_init(&attr);
 	pthread_t tid;
-	pthread_create(&tid,&attr,Read,&data);*/
+	pthread_create(&tid,&attr,hablar,&data);*/
 
 
 }
@@ -66,4 +66,6 @@ void writeMsg(int socket, std::string msg) {
 	write(socket, var.data(), var.length());
 	//write(socket, "\n", 2);
 }
+
+
 

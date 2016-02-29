@@ -1,48 +1,21 @@
 /*
- * LinkedList.cpp
+ * LinkedList1.cpp
  *
- *  Created on: 27 de feb. de 2016
+ *  Created on: 28 de feb. de 2016
  *      Author: adrian
  */
+
+#include "LinkedList1.h"
 #include <iostream>
 #include<stdio.h>
 #include<stdlib.h>
 
-
 using namespace std;
 
-template <typename T>
-class List
-{
-	//Se crea la estrutura Nodo con T como dato, se crean nodos para siguiente y para head
-	struct Node
-	{
-		T data;
-		Node *next;
-		Node(T d, Node *n = 0):data(d), next(n) {}//Este metodo crea el nodo con el dato d y apunta a un siguiente con valor cero en java seria NUll
-	};
-	Node *head;
-
-	//Se crean los metodos que sevan autilizar
-public:
-	List(Node *h = 0):head(h){}
-	~List(); //No se para que es esto pero si se lo quito se despicha
-	void insert(Node *loc, T d);
-	void push_back(T d);
-	void push_front(T d);
-	T pop_back();
-	T pop_front();
-	void erase(Node *loc);
-	void display();
-	Node *search(T d);
-	int getLenght();
-	void deleteNode(int);
-	T getData(int pos);
-};
 
 //inserta el dato d antes que loc
 template <typename T>
-void List<T>::insert(Node *loc, T d)
+void LinkedList1<T>::insert(Node *loc, T d)
 {
 	Node  *new_node = new Node(d,0);//Se crea un nodo con el nuevo dato con un siguiente con valor de 0 para no apuntar
 	if(!head) {
@@ -66,7 +39,7 @@ void List<T>::insert(Node *loc, T d)
 
 //Metodo que inserta al final
 template <typename T>
-void List<T>::push_back(T d)
+void LinkedList1<T>::push_back(T d)
 {
 	Node *new_node = new Node(d,0);
 	if(!head) {
@@ -85,7 +58,7 @@ void List<T>::push_back(T d)
 //Metodo que inserta al incio
 
 template <typename T>
-void List<T>::push_front(T d)
+void LinkedList1<T>::push_front(T d)
 {
 	Node *new_node = new Node(d,0);
 	if(!head) {
@@ -99,7 +72,7 @@ void List<T>::push_front(T d)
 
 //Metodo que quita el ultimo elemento de la lista
 template <typename T>
-T List<T>::pop_back()
+T LinkedList1<T>::pop_back()
 {
 	Node *cur = head;
 	while(cur) {
@@ -124,7 +97,7 @@ T List<T>::pop_back()
 
 //Metodo que quita el primer elemento de la lista
 template <typename T>
-T List<T>::pop_front()
+T LinkedList1<T>::pop_front()
 {
 	if(!head) return NULL;
 	Node *tmp = head;
@@ -141,7 +114,7 @@ T List<T>::pop_front()
 
 //Metodo para borrar elementos
 template <typename T>
-void List<T>::erase(Node *loc)
+void LinkedList1<T>::erase(Node *loc)
 {
 	if(loc == head) {
 		Node *tmp = head;
@@ -162,7 +135,7 @@ void List<T>::erase(Node *loc)
 //Metodo para buscar elementos
 
 template <typename T>
-typename List<T>::Node* List<T>::search(T d)
+typename LinkedList1<T>::Node* LinkedList1<T>::search(T d)
 {
 	if(!head) return NULL;
 	Node* cur = head;
@@ -177,7 +150,7 @@ typename List<T>::Node* List<T>::search(T d)
 
 //Metodo que muestra la lista
 template <typename T>
-void List<T>::display()
+void LinkedList1<T>::display()
 {
 	if(!head) return;
 	Node *cur  = head;
@@ -189,7 +162,7 @@ void List<T>::display()
 }
 
 template <typename T>
-int List<T>::getLenght()
+int LinkedList1<T>::getLenght()
 {
 	int c=0;
 	if(!head) return 0;
@@ -202,7 +175,7 @@ int List<T>::getLenght()
 }
 
 template <typename T>
-void List<T>::deleteNode(int pPos)
+void LinkedList1<T>::deleteNode(int pPos)
 {
 	if(pPos == 0) {
 			Node *tmp = head;
@@ -226,7 +199,7 @@ void List<T>::deleteNode(int pPos)
 }
 
 template<typename T>
-T List<T>::getData(int pos) {
+T LinkedList1<T>::getData(int pos) {
 	int c = 0;
 
 	Node* cur = head;
@@ -274,5 +247,4 @@ int main()
 	return 0;
 }
 */
-
 
