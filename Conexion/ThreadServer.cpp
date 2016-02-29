@@ -13,13 +13,14 @@
 #include "ThreadServer.h"
 #include<pthread.h>
 
-
-
 using namespace std;
 using namespace boost;
 
 void writeMsg(int socket, std::string msg);
-struct threadData { int param1; int param2; };
+struct threadData {
+	int param1;
+	int param2;
+};
 
 ThreadServer::ThreadServer() {
 	// TODO Auto-generated constructor stub
@@ -27,7 +28,7 @@ ThreadServer::ThreadServer() {
 }
 
 void Read(int socks, int client) {
-	while(1){
+	while (1) {
 		int n;
 		char buffer1[256];
 		bzero(buffer1, 256);
@@ -38,23 +39,23 @@ void Read(int socks, int client) {
 		}
 		cout << "Mensaje de cliente " << client << ":" << buffer1 << endl;
 		Jsons json1;
+		//Se llama a la funcion parseJson para poder leer el json obtenido del puerto
 		json1.parseJson(buffer1, socks);
 		writeMsg(socks, "hola\n");
 	}
 
 }
 void ThreadServer::Thread(int sock, int client) {
-
+	//Se crea el hilo para read, con el numero de socket y el numero de cliente
 	thread thread_1(Read, sock, client);
 	thread_1.join();
 
 	/*struct threadData data = {sock,client};
 
-	pthread_attr_t attr;
-	pthread_attr_init(&attr);
-	pthread_t tid;
-	pthread_create(&tid,&attr,hablar,&data);*/
-
+	 pthread_attr_t attr;
+	 pthread_attr_init(&attr);
+	 pthread_t tid;
+	 pthread_create(&tid,&attr,hablar,&data);*/
 
 }
 
@@ -62,10 +63,8 @@ void writeMsg(int socket, std::string msg) {
 	std::string var;
 	cout << "\nServidor: ";
 	cin >> var;
-	var=var+"\n";
+	var = var + "\n";
 	write(socket, var.data(), var.length());
 	//write(socket, "\n", 2);
 }
-
-
 

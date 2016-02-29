@@ -19,9 +19,15 @@ public:
 	void addScoreUser(string, int);
 	static GameLogic* Instance();
 private:
-	GameLogic(){};
-	GameLogic(GameLogic const&){};             // copy constructor is private
-	GameLogic& operator=(GameLogic const&){};
+	GameLogic() {
+	}
+	;
+	GameLogic(GameLogic const&) {
+	}
+	;             // copy constructor is private
+	GameLogic& operator=(GameLogic const&) {
+	}
+	;
 	static GameLogic* m_pInstance;
 	//LinkedList1<Json::Value> *_logUsers=new LinkedList1<Json::Value>(NULL);
 

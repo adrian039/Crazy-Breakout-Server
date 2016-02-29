@@ -13,31 +13,33 @@ Jsons::Jsons() {
 
 }
 
-string Jsons::parseJson(char* json, int socket){
+string Jsons::parseJson(char* json, int socket) {
 	Json::Value root;
 	Json::Reader reader;
-	reader.parse(json,root);
-	string key=root["key"].asString();
-	if(key.compare("addUser")==0){
-		string usern=root["userName"].asString();
-		int score=root["score"].asInt();
+	reader.parse(json, root);
+	string key = root["key"].asString();
+	//Inician las condiciones que conforman la logica del juego
+	if (key.compare("addUser") == 0) {
+		string usern = root["userName"].asString();
+		int score = root["score"].asInt();
 		GameLogic::Instance()->addUser(socket, usern, score);
 	}
 	/*Json::Value prueb;
-	prueb["tipo"]="prueba";
-	//cout<<tipo;
-	//createJson(prueb,"dato1", "Adrian");
-	return "a";*/
+	 prueb["tipo"]="prueba";
+	 //cout<<tipo;
+	 //createJson(prueb,"dato1", "Adrian");
+	 return "a";*/
 	return "a";
 }
 
-Json::Value Jsons::addToJson(Json::Value funct, string ArrayKey, string ArrayData){
+Json::Value Jsons::addToJson(Json::Value funct, string ArrayKey,
+		string ArrayData) {
 	int size;
-	funct[ArrayKey]=ArrayData;
+	funct[ArrayKey] = ArrayData;
 	//cout<<ArrayKeys[3]<<endl;
 	/*for(int i=0; i<=size; i++){
-		json1[ArrayKeys[i]]=ArrayData[i];
-	}*/
-	cout<<funct;
+	 json1[ArrayKeys[i]]=ArrayData[i];
+	 }*/
+	cout << funct;
 	return funct;
 }
