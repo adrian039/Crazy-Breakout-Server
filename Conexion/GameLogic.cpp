@@ -9,7 +9,7 @@
 #include "Server.h"
 #include "LinkedList1.cpp"
 
-extern LinkedList1<Json::Value> *_logUsers; // Se hace referencia a la variable estatica creada en Server.h
+//extern LinkedList1<Json::Value> *_logUsers; // Se hace referencia a la variable estatica creada en Server.h
 GameLogic* GameLogic::m_pInstance = NULL;
 
 GameLogic* GameLogic::Instance() {

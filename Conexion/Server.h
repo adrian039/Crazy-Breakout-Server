@@ -25,7 +25,7 @@
 
 using namespace std;
 //Se crea la variable estatica de tipo LinkedList1 para almacenar los usuarios
-static LinkedList1<Json::Value> *_logUsers = new LinkedList1<Json::Value>(NULL);
+
 
 class Server {
 public:

@@ -16,6 +16,7 @@
 using namespace std;
 using namespace boost;
 
+void *Read(void *threadData1);
 void writeMsg(int socket, std::string msg);
 struct threadData {
 	int param1;

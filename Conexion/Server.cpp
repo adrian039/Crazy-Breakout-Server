@@ -10,6 +10,7 @@
 #include"ThreadServer.h"
 
 using namespace std;
+//LinkedList1<Json::Value> *_logUsers = new LinkedList1<Json::Value>(NULL);
 
 Server::Server() {
 	// TODO Auto-generated constructor stub

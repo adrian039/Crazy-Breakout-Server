@@ -18,6 +18,7 @@ public:
 	void addUser(int, string, int);
 	void addScoreUser(string, int);
 	static GameLogic* Instance();
+	LinkedList1<Json::Value> *_logUsers = new LinkedList1<Json::Value>(NULL);
 private:
 	GameLogic() {
 	}
