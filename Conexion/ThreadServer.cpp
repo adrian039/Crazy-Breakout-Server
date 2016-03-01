@@ -30,7 +30,6 @@ ThreadServer::ThreadServer() {
 void *Read(void *threadData1) {
 	struct threadData *my_data;
 	my_data = (struct threadData *) threadData1;
-	cout << my_data->param2 << endl;
 	while (1) {
 		int n;
 		char buffer1[256];
@@ -51,11 +50,8 @@ void *Read(void *threadData1) {
 }
 void ThreadServer::Thread(int sock, int client) {
 	//Se crea el hilo para read, con el numero de socket y el numero de cliente
-	/*thread thread_1(Read, sock, client);
-	 thread_1.join();
-	 */
-	struct threadData td = { sock, client };
 
+	struct threadData td = { sock, client };
 	pthread_attr_t attr;
 	pthread_attr_init(&attr);
 	pthread_t tid;
