@@ -8,43 +8,43 @@
 #include "GameLogic.h"
 #include "Server.h"
 #include "LinkedList1.cpp"
+#include "IConstants.h"
 
-//extern LinkedList1<Json::Value> *_logUsers; // Se hace referencia a la variable estatica creada en Server.h
 GameLogic* GameLogic::m_pInstance = NULL;
 
 GameLogic* GameLogic::Instance() {
 	if (!m_pInstance) {   // Only allow one instance of class to be generated.
-		m_pInstance = new GameLogic;
+		m_pInstance = new GameLogic();
+		std::cout << "reconstruccion"<<std::endl;
 	}
 	return m_pInstance;
 }
+Json::Value GameLogic::initGame(){
+	Json::Value json;
+	if(!gameInit){
+		 json[IConstants::getInstance()->K_Function] =
+				 IConstants::getInstance()->f_initGame;
+		 json[IConstants::getInstance()->K_heigth] =
+				 game_Heigth;
+		 json[IConstants::getInstance()->K_width] =
+				 game_Width;
+		 json[IConstants::getInstance()->K_speed] =
+					 speed;
+		 json[IConstants::getInstance()->K_timeLimit] =
+					 time;
+		 gameInit = true;
 
-void GameLogic::addUser(int pSocket, string pUserName, int pScore) {
-	//_logUsers->display();
-	Json::Value newUser;
-	newUser["socket"] = pSocket;
-	newUser["userName"] = pUserName;
-	newUser["score"] = pScore;
-	_logUsers->push_back(newUser);
-	GameLogic::Instance()->addScoreUser(pUserName, 235); //se llama esta funcion par aprobar add score (no es necesaria)
-}
-
-void GameLogic::addScoreUser(string pUsername, int pScore) {
-	int usersLenght = _logUsers->getLenght();
-	for (int i = 0; i < usersLenght; i++) {
-		Json::Value user = (Json::Value) _logUsers->getData(i);
-		string userName = user["userName"].asString();
-		if (userName.compare(pUsername) == 0) {
-			_logUsers->deleteNode(i);
-			int score = user["score"].asInt();
-			user["score"] = score + pScore;
-			_logUsers->push_back(user);
-			break;
-		}
 	}
-	_logUsers->display();   //muestra los elementos de la lista
-	cout << _logUsers->getLenght() << endl;   //imprime el tamaño de la lista
-	cout << &_logUsers << endl; //Imprime la direccion de memoria de la lista
-
+	return json;
 }
+
+void GameLogic::addUser(int pSocket, string pUserName) {
+      Player player(pUserName, pSocket);
+      playersList->push_back(player);
+      std::cout<< "player "<<pUserName<<" added"<< std::endl;
+      playersList->displayPlayers();
+}
+
+
+
 

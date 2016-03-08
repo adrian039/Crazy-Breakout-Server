@@ -7,7 +7,7 @@
 
 #ifndef LINKEDLIST1_H_
 #define LINKEDLIST1_H_
-
+#include <iostream>
 template<typename T>
 class LinkedList1 {
 	struct Node {
@@ -19,9 +19,10 @@ class LinkedList1 {
 	};
 	Node *head;
 public:
-	LinkedList1();
+
 	LinkedList1(Node *h = 0) :
 			head(h) {
+
 	}
 	//~LinkedList1(); //No se para que es esto pero si se lo quito se despicha
 	void insert(Node *loc, T d);
@@ -31,6 +32,7 @@ public:
 	T pop_front();
 	void erase(Node *loc);
 	void display();
+	void displayPlayers();
 	Node *search(T d);
 	int getLenght();
 	void deleteNode(int);

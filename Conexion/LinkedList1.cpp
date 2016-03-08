@@ -9,6 +9,7 @@
 #include <iostream>
 #include<stdio.h>
 #include<stdlib.h>
+#include "Player.h"
 
 using namespace std;
 
@@ -144,8 +145,9 @@ typename LinkedList1<T>::Node* LinkedList1<T>::search(T d) {
 //Metodo que muestra la lista
 template<typename T>
 void LinkedList1<T>::display() {
-	if (!head)
-		return;
+	if (!head){
+		cout  << "empty " << endl;
+		return;}
 	Node *cur = head;
 	while (cur) {
 		cout << cur->data << " " << endl;
@@ -153,6 +155,21 @@ void LinkedList1<T>::display() {
 	}
 	cout << endl;
 }
+template<typename T>
+void LinkedList1<T>::displayPlayers() {
+	if (!head){
+		cout  << "empty " << endl;
+		return;}
+	Node *cur = head;
+	while (cur) {
+		Player player = (Player) (cur->data);
+		string username  = player.getUsername();
+		cout << username << " " << endl;
+		cur = cur->next;
+	}
+	cout << endl;
+}
+
 
 template<typename T>
 int LinkedList1<T>::getLenght() {

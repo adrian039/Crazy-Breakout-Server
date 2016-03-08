@@ -21,7 +21,7 @@
 #include<arpa/inet.h>
 #include<unistd.h>
 #include"LinkedList1.h"
-#include "Jsons.h"
+
 
 using namespace std;
 //Se crea la variable estatica de tipo LinkedList1 para almacenar los usuarios
@@ -29,11 +29,16 @@ using namespace std;
 
 class Server {
 public:
-	Server();
-	int sockfd, newsockfd, portno, pid, cliente = 0;
-	char buffer[256];
-	struct sockaddr_in serv_addr, cli_addr;
-	socklen_t clilen;
+
+
+	static Server* getInstance();
+	void Thread();
+	Server(){
+		};
+private:
+
+	static Server* _instance;
+
 
 	//extern List<Json::Value> *_logUsers=new List<Json::Value>(NULL);
 

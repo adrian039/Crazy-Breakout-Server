@@ -8,15 +8,15 @@
 #ifndef THREADSERVER_H_
 #define THREADSERVER_H_
 
-#include"Jsons.h"
-
 using namespace std;
 
 class ThreadServer {
 public:
 	ThreadServer();
-	void Thread(int, int);
-	void Write(string, int);
+	void Thread(int, int , ThreadServer);
+	void writeMsg(int, string);
+	string Read(int);
+
 
 };
 

@@ -10,26 +10,45 @@
 #include <iostream>
 #include"LinkedList1.h"
 #include "jsoncpp/json.h"
+#include "GameBar.h"
+#include "Player.h"
+#include "Blocks.h"
+#include "Ball.h"
 
 using namespace std;
 
 class GameLogic {
 public:
-	void addUser(int, string, int);
+	Json::Value initGame();
+	void addUser(int, string);
 	void addScoreUser(string, int);
 	static GameLogic* Instance();
-	LinkedList1<Json::Value> *_logUsers = new LinkedList1<Json::Value>(NULL);
+
 private:
 	GameLogic() {
+		ballsList = new LinkedList1<Ball>(NULL);
+		blocksList = new LinkedList1<Blocks>(NULL);
+		barsList = new LinkedList1<Game_Bar>(NULL);
+		playersList = new LinkedList1<Player>(NULL);
+		game_Heigth= 500;
+		game_Width = 800;
+		time = 120;
+		speed = 35;
+		gameInit = false;
 	}
 	;
-	GameLogic(GameLogic const&) {
-	}
-	;             // copy constructor is private
-	GameLogic& operator=(GameLogic const&) {
-	}
-	;
+	int game_Heigth;
+	int game_Width ;
+	int time ;
+	int speed ;
+
+	void createBricks();
 	static GameLogic* m_pInstance;
+	LinkedList1<Ball> *ballsList;
+	LinkedList1<Blocks> *blocksList;
+	LinkedList1<Game_Bar> *barsList;
+	LinkedList1<Player> *playersList;
+	bool gameInit;
 	//LinkedList1<Json::Value> *_logUsers=new LinkedList1<Json::Value>(NULL);
 
 };
