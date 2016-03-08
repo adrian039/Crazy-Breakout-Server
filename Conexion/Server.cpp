@@ -10,10 +10,9 @@
 #include "GameLogic.h"
 #include"ThreadServer.h"
 #include"Server.h"
-
 #include <iostream>
-#include <cstring> 	// used for memset.
-#include <arpa/inet.h> 	// for inet_ntop function
+#include <cstring>
+#include <arpa/inet.h>
 #include <netdb.h>
 #include <sys/socket.h>
 #include <pthread.h>
@@ -22,31 +21,25 @@
 #include <iterator>
 #include <sstream>
 #include "Protocol.h"
-
 #include <errno.h>
 
 using namespace std;
 
-//server functions
 int server_start_listen();
 int server_establish_connection(int server_fd);
 void mainloop(int server_fd);
 
-//server constants
-const char * PORT = "8080"; // port numbers 1-1024 are probably reserved by your OS
-const int MAXLEN = 1024;   // Max lenhgt of a message.
-const int MAXFD = 1000; // Maximum file descriptors to use. Equals maximum clients.
-const int BACKLOG = 5; // Number of connections that can wait in que before they be accept()ted
+const char * PORT = "8080";
+const int MAXLEN = 1024;
+const int MAXFD = 1000;
+const int BACKLOG = 5;
 int client = 0;
 
-// This needs to be declared volatile because it can be altered by an other thread. Meaning the compiler cannot
-// optimise the code, because it's declared that not only the program can change this variable, but also external
-// programs. In this case, a thread.
 volatile fd_set the_state;
 
 pthread_mutex_t mutex_state = PTHREAD_MUTEX_INITIALIZER;
 
-pthread_mutex_t boardmutex = PTHREAD_MUTEX_INITIALIZER; // mutex locker for the chessboard vector.
+pthread_mutex_t boardmutex = PTHREAD_MUTEX_INITIALIZER;
 
 void *Read1(void *threadData1);
 struct threadData {
@@ -56,7 +49,7 @@ struct threadData {
 
 int main() {
 
-	cout << "Servidor Iniciado...." << endl; // don not forgfet endl, or it won't display.
+	cout << "Servidor Iniciado...." << endl;
 	int server_fd = server_start_listen();
 	if (server_fd == -1) {
 		cout << "An error occured. Closing program.";
@@ -69,50 +62,31 @@ int main() {
 int server_start_listen() {
 
 	struct addrinfo hostinfo, *res;
-	int server_fd; // the fd the server listens on
+	int server_fd;
 	int ret;
 	int yes = 1;
 
-// first, load up address structs with getaddrinfo():
-
 	memset(&hostinfo, 0, sizeof(hostinfo));
-
-	hostinfo.ai_family = AF_UNSPEC;  // use IPv4 or IPv6, whichever
+	hostinfo.ai_family = AF_UNSPEC;
 	hostinfo.ai_socktype = SOCK_STREAM;
-	hostinfo.ai_flags = AI_PASSIVE;     // fill in my IP for me
+	hostinfo.ai_flags = AI_PASSIVE;
 
 	getaddrinfo(NULL, PORT, &hostinfo, &res);
-
 	server_fd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
-	//if(server_fd < 0) throw some error;
-
-	//prevent "Error Address already in use"
 	ret = setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
-	// if(ret < 0) throw some error;
-
 	ret = bind(server_fd, res->ai_addr, res->ai_addrlen);
-
 	if (ret != 0) {
 		cout << "error :" << strerror(errno) << endl;
 		return -1;
 	}
-
 	ret = listen(server_fd, BACKLOG);
-	//if(ret < 0) throw some error;
-
 	return server_fd;
 
 }
 
-int server_establish_connection(int server_fd)
-// This function will establish a connection between the server and the
-// client. It will be executed for every new client that connects to the server.
-// This functions returns the socket filedescriptor for reading the clients data
-// or an error if it failed.
-		{
+int server_establish_connection(int server_fd) {
 	char ipstr[INET6_ADDRSTRLEN];
 	int port;
-
 	int new_sd;
 	struct sockaddr_storage remote_info;
 	socklen_t addr_size;
@@ -120,33 +94,24 @@ int server_establish_connection(int server_fd)
 	addr_size = sizeof(addr_size);
 	new_sd = accept(server_fd, (struct sockaddr *) &remote_info, &addr_size);
 	client++;
-	//if (fd < 0) throw some error here;
-
 	getpeername(new_sd, (struct sockaddr*) &remote_info, &addr_size);
-
-	// deal with both IPv4 and IPv6:
 	if (remote_info.ss_family == AF_INET) {
 		struct sockaddr_in *s = (struct sockaddr_in *) &remote_info;
 		port = ntohs(s->sin_port);
 		inet_ntop(AF_INET, &s->sin_addr, ipstr, sizeof ipstr);
-	} else { // AF_INET6
+	} else {
 		struct sockaddr_in6 *s = (struct sockaddr_in6 *) &remote_info;
 		port = ntohs(s->sin6_port);
 		inet_ntop(AF_INET6, &s->sin6_addr, ipstr, sizeof ipstr);
 	}
 
-	std::cout << "Cliente conectado " << client << " puerto: " << port
-			<< endl;
+	std::cout << "Cliente conectado " << client << " puerto: " << port << endl;
 
 	return new_sd;
 
 }
 
-void mainloop(int server_fd)
-
-// This loop will wait for a client to connect. When the client connects, it creates a
-// new thread for the client and starts waiting again for a new client.
-		{
+void mainloop(int server_fd) {
 	pthread_t threads[MAXFD];
 	FD_ZERO(&the_state);
 	while (1) {
@@ -154,11 +119,10 @@ void mainloop(int server_fd)
 		rfd = server_establish_connection(server_fd);
 		ThreadServer server;
 		if (rfd >= 0) {
-			pthread_mutex_lock(&mutex_state); // Make sure no 2 threads can create a fd simultanious.
-			FD_SET(rfd, &the_state);  // Add a file descriptor to the FD-set.
-			pthread_mutex_unlock(&mutex_state); // End the mutex lock
+			pthread_mutex_lock(&mutex_state);
+			FD_SET(rfd, &the_state);
+			pthread_mutex_unlock(&mutex_state);
 			struct threadData td = { rfd, client };
-			// now create a thread for this client to intercept all incomming data from it.
 			pthread_create(&threads[rfd], NULL, Read1, (void *) &td);
 		}
 	}
@@ -179,110 +143,9 @@ void *Read1(void *threadData1) {
 		cout << "Mensaje de cliente " << my_data->cliente << ":" << buffer1
 				<< endl;
 		string data(buffer1);
-		Protocol::getInstance()->initProtocol(data,my_data->socket);
-		//Se llama a la funcion parseJson para poder leer el json obtenido del puerto
-
+		Protocol::getInstance()->initProtocol(data, my_data->socket);
 
 	}
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*#include"Server.h"
-#include "GameLogic.h"
-#include"ThreadServer.h"
-#include "LinkedList1.h"
-#include "Protocol.h"
-
-using namespace std;
-Server* Server::_instance = NULL;
-void *initServer(void* para);
-int sockfd, newsockfd, portno, pid, cliente = 0;
-char buffer[256];
-struct sockaddr_in serv_addr, cli_addr;
-socklen_t clilen;
-void *initServer(void* pParam);
-Server* Server::getInstance(){
- if(!_instance){
-		_instance = new Server();
-	}
-    return _instance;
-}
-
-void *initServer(void* param){
-	// TODO Auto-generated constructor stub
-	//GameLogic::Instance(); //se instancia la clase GameLogic
-	//Protocol::getInstance();
-	LinkedList1<int> *list = new LinkedList1<int>(NULL);
-	sockfd = socket(AF_INET, SOCK_STREAM, 0);
-	if (sockfd < 0) {
-		perror("ERROR opening socket");
-		exit(1);
-	}
-
-	bzero((char *) &serv_addr, sizeof(serv_addr));
-	portno = 8080;
-
-	serv_addr.sin_family = AF_INET;
-	serv_addr.sin_addr.s_addr = INADDR_ANY;
-	serv_addr.sin_port = htons(portno);
-
-	if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
-		perror("ERROR on binding");
-		exit(1);
-	}
-
-	listen(sockfd, 5);
-	clilen = sizeof(cli_addr);
-	cout << "Servidor Iniciado..." << endl;
-	//Se inicia el ciclo para que este escuhando por el puerto
-	while (1) {
-		newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
-		cliente = cliente + 1;
-
-		if (newsockfd < 0) {
-			perror("ERROR aceptando conexion");
-			exit(1);
-		}
-
-			ThreadServer thread;
-			cout << "Nueva conexion " << cliente << endl;
-			cout << newsockfd << endl;
-			close(sockfd);
-			thread.Thread(newsockfd, cliente, thread);
-			exit(0);
-
-	}
-
-}
-
-void Server::Thread() {
-	//Se crea el hilo para read, con el numero de socket y el numero de cliente
-
-	pthread_t tid;
-	pthread_create(&tid, NULL, initServer,NULL);
-	pthread_join(tid, NULL);
-
-
-}*/

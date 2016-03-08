@@ -17,7 +17,5 @@ Blocks::Blocks(int pPosX, int pPosY, int pWidth, int pHeight, int pLevel,
 	_contactHeight = pContactH;
 	_contactWidth = pContactW;
 
-
-
 }
 

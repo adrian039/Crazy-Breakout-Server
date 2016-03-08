@@ -10,12 +10,22 @@
 
 class Blocks {
 public:
-	Blocks(int,int,int,int,int,int,int);
-	int getWidth(){return _width;}
-	int getHeigth(){return _height;}
-	int getPosX(){return _posX;}
-	int getPosY(){return _posY;}
-	int getLevel(){return _level;}
+	Blocks(int, int, int, int, int, int, int);
+	int getWidth() {
+		return _width;
+	}
+	int getHeigth() {
+		return _height;
+	}
+	int getPosX() {
+		return _posX;
+	}
+	int getPosY() {
+		return _posY;
+	}
+	int getLevel() {
+		return _level;
+	}
 private:
 	int _width;
 	int _height;

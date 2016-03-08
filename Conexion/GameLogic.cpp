@@ -15,36 +15,29 @@ GameLogic* GameLogic::m_pInstance = NULL;
 GameLogic* GameLogic::Instance() {
 	if (!m_pInstance) {   // Only allow one instance of class to be generated.
 		m_pInstance = new GameLogic();
-		std::cout << "reconstruccion"<<std::endl;
+		std::cout << "reconstruccion" << std::endl;
 	}
 	return m_pInstance;
 }
-Json::Value GameLogic::initGame(){
+Json::Value GameLogic::initGame() {
 	Json::Value json;
-	if(!gameInit){
-		 json[IConstants::getInstance()->K_Function] =
-				 IConstants::getInstance()->f_initGame;
-		 json[IConstants::getInstance()->K_heigth] =
-				 game_Heigth;
-		 json[IConstants::getInstance()->K_width] =
-				 game_Width;
-		 json[IConstants::getInstance()->K_speed] =
-					 speed;
-		 json[IConstants::getInstance()->K_timeLimit] =
-					 time;
-		 gameInit = true;
+	if (!gameInit) {
+		json[IConstants::getInstance()->K_Function] =
+				IConstants::getInstance()->f_initGame;
+		json[IConstants::getInstance()->K_heigth] = game_Heigth;
+		json[IConstants::getInstance()->K_width] = game_Width;
+		json[IConstants::getInstance()->K_speed] = speed;
+		json[IConstants::getInstance()->K_timeLimit] = time;
+		gameInit = true;
 
 	}
 	return json;
 }
 
 void GameLogic::addUser(int pSocket, string pUserName) {
-      Player player(pUserName, pSocket);
-      playersList->push_back(player);
-      std::cout<< "player "<<pUserName<<" added"<< std::endl;
-      playersList->displayPlayers();
+	Player player(pUserName, pSocket);
+	playersList->push_back(player);
+	std::cout << "player " << pUserName << " added" << std::endl;
+	playersList->displayPlayers();
 }
-
-
-
 

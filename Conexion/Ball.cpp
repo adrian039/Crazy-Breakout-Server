@@ -13,16 +13,14 @@ Ball::Ball(int pSize, int pPosX, int pPosY) {
 	_posY = pPosY;
 	_speed = 1;
 }
-void Ball::moreSpeed(){
+void Ball::moreSpeed() {
 	_speed++;
 }
-void Ball::setPos(int pPosX, int pPosY){
-	_posX= pPosX;
+void Ball::setPos(int pPosX, int pPosY) {
+	_posX = pPosX;
 	_posY = pPosY;
 }
-void Ball::setSize(int pSize){
+void Ball::setSize(int pSize) {
 	_size = pSize;
 }
-
-
 

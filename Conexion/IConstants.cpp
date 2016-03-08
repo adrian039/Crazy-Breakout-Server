@@ -12,15 +12,13 @@
 #include <iostream>
 IConstants* IConstants::_instance = NULL;
 
-
 IConstants::~IConstants() {
 	// TODO Auto-generated destructor stub
 }
-IConstants* IConstants::getInstance(){
-	   if(_instance==NULL){
-		   _instance = new IConstants();
-	   }
-	   return _instance;
-	   }
-
+IConstants* IConstants::getInstance() {
+	if (_instance == NULL) {
+		_instance = new IConstants();
+	}
+	return _instance;
+}
 

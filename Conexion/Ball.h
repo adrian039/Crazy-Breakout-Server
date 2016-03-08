@@ -10,15 +10,22 @@
 
 class Ball {
 public:
-	Ball(int,int,int);
+	Ball(int, int, int);
 	void moreSpeed();
-	int getPosX(){return _posX;}
-	int getPosY(){return _posY;}
-	int getSize(){return _size;}
-	int getSpeed(){return _speed;}
-	void setPos(int,int);
+	int getPosX() {
+		return _posX;
+	}
+	int getPosY() {
+		return _posY;
+	}
+	int getSize() {
+		return _size;
+	}
+	int getSpeed() {
+		return _speed;
+	}
+	void setPos(int, int);
 	void setSize(int);
-
 
 private:
 

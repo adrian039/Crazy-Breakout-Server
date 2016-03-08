@@ -145,9 +145,10 @@ typename LinkedList1<T>::Node* LinkedList1<T>::search(T d) {
 //Metodo que muestra la lista
 template<typename T>
 void LinkedList1<T>::display() {
-	if (!head){
-		cout  << "empty " << endl;
-		return;}
+	if (!head) {
+		cout << "empty " << endl;
+		return;
+	}
 	Node *cur = head;
 	while (cur) {
 		cout << cur->data << " " << endl;
@@ -157,19 +158,19 @@ void LinkedList1<T>::display() {
 }
 template<typename T>
 void LinkedList1<T>::displayPlayers() {
-	if (!head){
-		cout  << "empty " << endl;
-		return;}
+	if (!head) {
+		cout << "empty " << endl;
+		return;
+	}
 	Node *cur = head;
 	while (cur) {
 		Player player = (Player) (cur->data);
-		string username  = player.getUsername();
+		string username = player.getUsername();
 		cout << username << " " << endl;
 		cur = cur->next;
 	}
 	cout << endl;
 }
-
 
 template<typename T>
 int LinkedList1<T>::getLenght() {
@@ -221,39 +222,4 @@ T LinkedList1<T>::getData(int pos) {
 	}
 
 }
-//Main para prueba
-/*
- int main()
- {
- List<int> *myList = new List<int>(NULL);
-
- myList->push_back(20);
- myList->push_back(30);
- myList->push_back(40);
- myList->push_back(50);
- myList->display();
-
- myList->push_front(10);
- myList->display();
-
- myList->erase(myList->search(30));
- myList->display();
-
- myList->insert(myList->search(40),30);
- myList->display();
-
- cout << "pop_back()\n";
- cout << myList->pop_back() << " just back popped\n\n";
- myList->display();
-
- cout << "pop_front()\n";
- cout << myList->pop_front() << " just front popped\n\n";
- myList->display();
-
- cout << "search() 30\n";
- cout << myList->search(30);
-
- return 0;
- }
- */
 

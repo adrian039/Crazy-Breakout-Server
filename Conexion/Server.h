@@ -22,23 +22,20 @@
 #include<unistd.h>
 #include"LinkedList1.h"
 
-
 using namespace std;
 //Se crea la variable estatica de tipo LinkedList1 para almacenar los usuarios
-
 
 class Server {
 public:
 
-
 	static Server* getInstance();
 	void Thread();
-	Server(){
-		};
+	Server() {
+	}
+	;
 private:
 
 	static Server* _instance;
-
 
 	//extern List<Json::Value> *_logUsers=new List<Json::Value>(NULL);
 

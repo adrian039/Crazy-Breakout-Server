@@ -16,4 +16,3 @@ Game_Bar::Game_Bar(int pPosX, int pPosY, int pWidth, int pHeight) {
 
 }
 
-
