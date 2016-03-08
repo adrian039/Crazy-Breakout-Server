@@ -35,7 +35,7 @@ private:
 		blocksList = new LinkedList1<Blocks>(NULL);
 		barsList = new LinkedList1<Game_Bar>(NULL);
 		playersList = new LinkedList1<Player>(NULL);
-		game_Heigth= 500;
+		game_Heigth = 500;
 		game_Width = 800;
 		time = 120;
 		speed = 35;
@@ -45,12 +45,12 @@ private:
 		newBar_Y = 480;
 		newBall_Y = 400;
 
- 	}
+	}
 	;
 	int game_Heigth;
-	int game_Width ;
-	int time ;
-	int speed ;
+	int game_Width;
+	int time;
+	int speed;
 	int newBar_X;
 	int newBar_Y;
 	int newBall_X;

@@ -9,10 +9,8 @@
 
 Game_Bar::Game_Bar(int pPosX, int pPosY) {
 
-
 	_posY = pPosY;
 	_posX = pPosX;
 
 }
-
 

@@ -10,11 +10,19 @@
 
 class Game_Bar {
 public:
-	Game_Bar(int,int);
-	int getWidth(){return _width;}
-	int getHeigth(){return _height;}
-	int getPosX(){return _posX;}
-	int getPosY(){return _posY;}
+	Game_Bar(int, int);
+	int getWidth() {
+		return _width;
+	}
+	int getHeigth() {
+		return _height;
+	}
+	int getPosX() {
+		return _posX;
+	}
+	int getPosY() {
+		return _posY;
+	}
 
 private:
 	int _width;

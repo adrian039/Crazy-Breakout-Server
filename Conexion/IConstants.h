@@ -14,25 +14,26 @@
 using namespace std;
 class IConstants {
 public:
-	 static IConstants* getInstance();
-     const char*  f_initGame = "f_initGame" ;
-     const char*  f_newPlayer= "f_newPlayer";
-     const char*  f_newBall= "f_newBall";
-     const char*  f_newBar= "f_newBar";
-     const char*  K_username= "K_username";
-     const char*  K_points= "K_points";
-     const char*  K_listNumber= "K_listNumber";
-     const char*  K_Function = "K_Function";
-     const char*  K_width = "K_width";
-     const char*  K_heigth = "K_heigth";
-     const char*  K_timeLimit = "K_timeLimit";
-     const char*  K_speed = "K_speed";
-     const char*  K_posX = "K_posX";
-     const char*  K_posY = "K_posY";
-
+	static IConstants* getInstance();
+	const char* f_initGame = "f_initGame";
+	const char* f_newPlayer = "f_newPlayer";
+	const char* f_newBall = "f_newBall";
+	const char* f_newBar = "f_newBar";
+	const char* K_username = "K_username";
+	const char* K_points = "K_points";
+	const char* K_listNumber = "K_listNumber";
+	const char* K_Function = "K_Function";
+	const char* K_width = "K_width";
+	const char* K_heigth = "K_heigth";
+	const char* K_timeLimit = "K_timeLimit";
+	const char* K_speed = "K_speed";
+	const char* K_posX = "K_posX";
+	const char* K_posY = "K_posY";
 
 private:
-	IConstants(){};
+	IConstants() {
+	}
+	;
 	static IConstants* _instance;
 	virtual ~IConstants();
 };
