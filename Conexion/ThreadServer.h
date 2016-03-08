@@ -13,9 +13,10 @@ using namespace std;
 class ThreadServer {
 public:
 	ThreadServer();
-	void Thread(int, int, ThreadServer);
+	void Thread(int, int , ThreadServer);
 	void writeMsg(int, string);
 	string Read(int);
+
 
 };
 

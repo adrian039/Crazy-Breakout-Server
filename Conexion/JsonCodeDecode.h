@@ -15,20 +15,20 @@ using namespace std;
 class Json_Code_Decode {
 public:
 	static Json_Code_Decode* getInstance();
-	void getJsonData(string, string);
-	int getInt(Json::Value, string);
-	char* getChar(Json::Value, string);
-	string getString(Json::Value, string);
+    void getJsonData(string,string);
+	int getInt(Json::Value,string);
+	char* getChar(Json::Value,string);
+	string getString(Json::Value,string);
 	Json::Value getJson(string);
 	bool isJson(string);
-	void includeString(string, Json::Value, string);
-	void includeInt(int, Json::Value, string);
+	void includeString(string, Json::Value,string);
+	void includeInt(int,Json::Value,string);
 private:
-	Json_Code_Decode() {
-	}
-	;
+    Json_Code_Decode(){};
 	static Json_Code_Decode* _instance;
 
+
 };
+
 
 #endif /* JSONCODEDECODE_H_ */

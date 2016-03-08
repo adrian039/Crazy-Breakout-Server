@@ -7,7 +7,7 @@
 
 #include "Player.h"
 
-Player::Player(string pUsername, int pPlayerNumber) {
+Player::Player(string pUsername, int pPlayerNumber){
 	_username = pUsername;
 	_playerNumber = pPlayerNumber;
 	_points = 0;

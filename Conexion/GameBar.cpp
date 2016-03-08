@@ -7,12 +7,12 @@
 
 #include "GameBar.h"
 
-Game_Bar::Game_Bar(int pPosX, int pPosY, int pWidth, int pHeight) {
+Game_Bar::Game_Bar(int pPosX, int pPosY) {
 
-	_height = pHeight;
-	_width = pWidth;
+
 	_posY = pPosY;
 	_posX = pPosX;
 
 }
+
 

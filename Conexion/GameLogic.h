@@ -13,6 +13,7 @@
 #include "GameBar.h"
 #include "Player.h"
 #include "Blocks.h"
+
 #include "Ball.h"
 
 using namespace std;
@@ -20,6 +21,10 @@ using namespace std;
 class GameLogic {
 public:
 	Json::Value initGame();
+	Json::Value newBall();
+	Json::Value newBar();
+	int getBallX();
+	int getBarX();
 	void addUser(int, string);
 	void addScoreUser(string, int);
 	static GameLogic* Instance();
@@ -30,17 +35,26 @@ private:
 		blocksList = new LinkedList1<Blocks>(NULL);
 		barsList = new LinkedList1<Game_Bar>(NULL);
 		playersList = new LinkedList1<Player>(NULL);
-		game_Heigth = 500;
+		game_Heigth= 500;
 		game_Width = 800;
 		time = 120;
 		speed = 35;
 		gameInit = false;
-	}
+		newBar_X = 0;
+		newBall_X = 0;
+		newBar_Y = 480;
+		newBall_Y = 400;
+
+ 	}
 	;
 	int game_Heigth;
-	int game_Width;
-	int time;
-	int speed;
+	int game_Width ;
+	int time ;
+	int speed ;
+	int newBar_X;
+	int newBar_Y;
+	int newBall_X;
+	int newBall_Y;
 
 	void createBricks();
 	static GameLogic* m_pInstance;

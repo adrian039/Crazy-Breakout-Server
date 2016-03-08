@@ -16,21 +16,24 @@ using namespace std;
 class Protocol {
 public:
 	static Protocol* getInstance();
-	void initProtocol(string, int);
+    void initProtocol(string, int );
 private:
-	Protocol() {
+	Protocol(){
 		list = new LinkedList1<string>(NULL);
-	}
-	;
+	};
 	Protocol(Protocol const&) {
 		list = new LinkedList1<string>(NULL);
 	}
 	;
 	void initGame(int);
-	void addPlayer(Json::Value, int);
+	void newBall(int);
+	void newBar(int);
+	void addPlayer(Json::Value,int);
+	void send(int,Json::Value);
 	static Protocol* _instance;
-	void manage(std::string, Json::Value, int);
-	LinkedList1<string> *list;
+	 void manage(std::string, Json::Value,int);
+	 LinkedList1<string> *list;
+
 
 };
 

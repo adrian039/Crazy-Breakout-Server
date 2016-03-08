@@ -7,20 +7,19 @@
 
 #include "Ball.h"
 
-Ball::Ball(int pSize, int pPosX, int pPosY) {
-	_size = pSize;
+Ball::Ball( int pPosX, int pPosY) {
 	_posX = pPosX;
 	_posY = pPosY;
-	_speed = 1;
+
 }
-void Ball::moreSpeed() {
-	_speed++;
-}
-void Ball::setPos(int pPosX, int pPosY) {
-	_posX = pPosX;
+
+void Ball::setPos(int pPosX, int pPosY){
+	_posX= pPosX;
 	_posY = pPosY;
 }
-void Ball::setSize(int pSize) {
+void Ball::setSize(int pSize){
 	_size = pSize;
 }
+
+
 
