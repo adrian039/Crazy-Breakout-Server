@@ -117,7 +117,6 @@ void mainloop(int server_fd) {
 	while (1) {
 		int rfd;
 		rfd = server_establish_connection(server_fd);
-		ThreadServer server;
 		if (rfd >= 0) {
 			pthread_mutex_lock(&mutex_state);
 			FD_SET(rfd, &the_state);
@@ -136,16 +135,21 @@ void *Read1(void *threadData1) {
 		char buffer1[256];
 		bzero(buffer1, 256);
 		n = read(my_data->socket, buffer1, 255);
+		string data(buffer1);
 		if (n < 0) {
 			perror("ERROR leyendo el socket");
 			exit(1);
+		} else if (data.compare("") == 0) {
+			cout << "El Cliente " << my_data->cliente << " se ha DESCONECTADO" << endl;
+			close(my_data->socket);
+			break;
+		} else {
+			cout << "Mensaje de cliente " << my_data->cliente << ":" << buffer1
+					<< endl;
+			Protocol::getInstance()->initProtocol(data, my_data->socket);
 		}
-		cout << "Mensaje de cliente " << my_data->cliente << ":" << buffer1
-				<< endl;
-		string data(buffer1);
-		Protocol::getInstance()->initProtocol(data, my_data->socket);
-
 	}
+	return 0;
 
 }
 
