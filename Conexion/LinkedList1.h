@@ -15,7 +15,7 @@ class LinkedList1 {
 		Node *next;
 		Node(T d, Node *n = 0) :
 				data(d), next(n) {
-		} //Este metodo crea el nodo con el dato d y apunta a un siguiente con valor cero en java seria NUll
+		}
 	};
 	Node *head;
 public:
@@ -24,7 +24,6 @@ public:
 			head(h) {
 
 	}
-	//~LinkedList1(); //No se para que es esto pero si se lo quito se despicha
 	void insert(Node *loc, T d);
 	void push_back(T d);
 	void push_front(T d);
