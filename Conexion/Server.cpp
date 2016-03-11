@@ -7,8 +7,6 @@
  */
 
 //#include"Server.h"
-#include "GameLogic.h"
-#include"ThreadServer.h"
 #include"Server.h"
 
 #include <iostream>
