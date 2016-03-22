@@ -7,9 +7,10 @@
 
 #include "Ball.h"
 
-Ball::Ball(int pPosX, int pPosY) {
+Ball::Ball(int pPosX, int pPosY,int pNumber) {
 	_posX = pPosX;
 	_posY = pPosY;
+	_number = pNumber;
 
 }
 

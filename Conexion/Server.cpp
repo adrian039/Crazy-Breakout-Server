@@ -25,6 +25,14 @@
 
 using namespace std;
 
+
+void *Read1(void *threadData1);
+struct threadData {
+	int socket;
+	int cliente;
+};
+
+
 int server_start_listen();
 int server_establish_connection(int server_fd);
 void mainloop(int server_fd);
@@ -34,18 +42,12 @@ const int MAXLEN = 1024;
 const int MAXFD = 1000;
 const int BACKLOG = 5;
 int client = 0;
-
 volatile fd_set the_state;
 
 pthread_mutex_t mutex_state = PTHREAD_MUTEX_INITIALIZER;
 
 pthread_mutex_t boardmutex = PTHREAD_MUTEX_INITIALIZER;
 
-void *Read1(void *threadData1);
-struct threadData {
-	int socket;
-	int cliente;
-};
 
 int main() {
 	cout << "Servidor Iniciado...." << endl;
@@ -103,7 +105,7 @@ int server_establish_connection(int server_fd) {
 		inet_ntop(AF_INET6, &s->sin6_addr, ipstr, sizeof ipstr);
 	}
 
-	std::cout << "Cliente conectado " << client << " puerto: " << port << endl;
+	std::cout << "Cliente conectado " << client << " puerto: 8080 - " << port << endl;
 
 	return new_sd;
 
@@ -116,11 +118,19 @@ void mainloop(int server_fd) {
 		int rfd;
 		rfd = server_establish_connection(server_fd);
 		if (rfd >= 0) {
-			pthread_mutex_lock(&mutex_state);
-			FD_SET(rfd, &the_state);
-			pthread_mutex_unlock(&mutex_state);
+
+		//	pthread_mutex_lock(&mutex_state);
+
+			//FD_SET(rfd, &the_state);
+			//pthread_mutex_unlock(&mutex_state);
 			struct threadData td = { rfd, client };
-			pthread_create(&threads[rfd], NULL, Read1, (void *) &td);
+			//pthread_create(&threads[rfd], NULL, Read1, (void *) &td);
+
+			pthread_attr_t attr;
+			pthread_attr_init(&attr);
+			pthread_t tid=threads[rfd];
+			pthread_create(&tid, NULL, Read1, (void *) &td);
+			//pthread_join(tid, NULL);
 		}
 	}
 }
@@ -139,12 +149,14 @@ void *Read1(void *threadData1) {
 			exit(1);
 		} else if (data.compare("") == 0) {
 			cout << "El Cliente " << my_data->cliente << " se ha DESCONECTADO" << endl;
+			Protocol::getInstance()->deletePlayer(my_data->socket);
+			std::cout<<my_data->socket<<" deleted"<<std::endl;
 			close(my_data->socket);
 			break;
 		} else {
 			cout << "Mensaje de cliente " << my_data->cliente << ":" << buffer1
 					<< endl;
-			Protocol::getInstance()->initProtocol(data, my_data->socket);
+			Protocol::getInstance()->initProtocol(data, my_data->socket, my_data->cliente);
 		}
 	}
 	return 0;

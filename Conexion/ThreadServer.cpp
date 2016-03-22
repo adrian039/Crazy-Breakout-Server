@@ -38,7 +38,7 @@ void *Connect(void *threadData1) {
 		string inData = Read(my_data->param1);
 		cout << "Mensaje de cliente " << my_data->param1 << ":" << inData
 				<< endl;
-		Protocol::getInstance()->initProtocol(inData, my_data->param1);
+		//Protocol::getInstance()->initProtocol(inData, my_data->param1);
 	}
 
 }

@@ -10,7 +10,7 @@
 
 class Blocks {
 public:
-	Blocks(int, int, int, int, int, int, int);
+	Blocks(int, int, int, int, int);
 	int getWidth() {
 		return _width;
 	}
@@ -23,17 +23,16 @@ public:
 	int getPosY() {
 		return _posY;
 	}
-	int getLevel() {
-		return _level;
+	int getNumber(){
+	  return _number;
 	}
 private:
 	int _width;
 	int _height;
 	int _posX;
 	int _posY;
-	int _level;
-	int _contactHeight;
-	int _contactWidth;
+	int _number;
+
 };
 
 #endif /* BLOCKS_H_ */

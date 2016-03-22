@@ -8,6 +8,8 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 #include <string>
+#include <iostream>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -23,9 +25,14 @@ public:
 	int getPoints() {
 		return _points;
 	}
+	int getPlayerNumber(){
+		return _playerNumber;
+	}
 	void setUsername(string);
 	void setSessionNumber(int);
-	void SetPoints(int);
+	void SetPoints(int p){
+		_points=p;
+	}
 	void setPlayerNum(int);
 private:
 	string _username;

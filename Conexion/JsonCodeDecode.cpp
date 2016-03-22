@@ -39,17 +39,23 @@ string Json_Code_Decode::getString(Json::Value pJson, string pKey) {
 	return key1;
 }
 
-void Json_Code_Decode::includeString(string pData, Json::Value pJson,
-		string pKey) {
+Json::Value Json_Code_Decode::includeString(string pKey, Json::Value pJson,
+		string pData) {
 	pJson[pKey] = pData;
+	return pJson;
 }
 
-void Json_Code_Decode::includeInt(int pData, Json::Value pJson, string pKey) {
+Json::Value Json_Code_Decode::includeInt(int pData, Json::Value pJson, string pKey) {
 	pJson[pKey] = pData;
+	return pJson;
 }
 
 int Json_Code_Decode::getInt(Json::Value pJson, string pKey) {
 	int key1 = pJson[pKey].asInt();
+	return key1;
+}
+double Json_Code_Decode::getDouble(Json::Value pJson, string pKey) {
+	double key1 = pJson[pKey].asDouble();
 	return key1;
 }
 

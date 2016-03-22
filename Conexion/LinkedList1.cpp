@@ -10,6 +10,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "Player.h"
+#include "Blocks.h"
+#include "Ball.h"
 
 using namespace std;
 
@@ -173,6 +175,23 @@ void LinkedList1<T>::displayPlayers() {
 }
 
 template<typename T>
+void LinkedList1<T>::displayPlayersScore() {
+	if (!head) {
+		cout << "empty " << endl;
+		return;
+	}
+	Node *cur = head;
+	while (cur) {
+		Player player = (Player) (cur->data);
+		string username = player.getUsername();
+		int score=player.getPoints();
+		cout << username << ": "<<score << endl;
+		cur = cur->next;
+	}
+	cout << endl;
+}
+
+template<typename T>
 int LinkedList1<T>::getLenght() {
 	int c = 0;
 	if (!head)
@@ -207,6 +226,111 @@ void LinkedList1<T>::deleteNode(int pPos) {
 	}
 
 }
+template<typename T>
+void LinkedList1<T>::deleteBlock(int pPos) {
+	int c = 0;
+	Node *cur = head;
+	std::cout<<"lista 1"<<std::endl;
+	while (cur) {
+		Blocks *block;
+		block = &cur->data;
+		int number = block->getNumber();
+		if (number == pPos && c==0){
+			std::cout<<"lista 2"<<std::endl;
+			Node *tmp = head;
+			head = head->next;
+			delete tmp;
+			return;
+		}
+		else if (number == pPos) {
+			if(c==getLenght()-1){
+				std::cout<<"lista 3"<<std::endl;
+				std::cout<<"eliminando "<<number<<std::endl;
+				delete cur;
+				break;
+			}
+			else{
+				std::cout<<"lista 4"<<std::endl;
+			std::cout<<"elimina "<<number<<std::endl;
+			Node *temp = cur->next;
+			cur->next = temp->next;
+			delete temp;
+			break;
+			}
+		}
+		c = c + 1;
+		cur = cur->next;
+	}
+}
+template<typename T>
+void LinkedList1<T>::deleteBall(int pPos) {
+	int c = 0;
+	Node *cur = head;
+	while (cur) {
+		Ball *ball;
+		ball = &cur->data;
+		int number = ball->getNumber();
+		if (number == pPos && c==0){
+			Node *tmp = head;
+			head = head->next;
+			delete tmp;
+			return;
+		}
+		else if (number == pPos) {
+			Node *temp = cur->next;
+			cur->next = temp->next;
+			delete temp;
+			break;
+		}
+		c = c + 1;
+		cur = cur->next;
+	}
+}
+template<typename T>
+void LinkedList1<T>::deletePlayer(int pPos) {
+	int c = 0;
+	Node *cur = head;
+	while (cur) {
+		Player *player;
+		player = &cur->data;
+		int number = player->getPlayerNumber();
+		if (number == pPos && c==0){
+			Node *tmp = head;
+			head = head->next;
+			delete tmp;
+			return;
+		}
+		else if (number == pPos) {
+			Node *temp = cur->next;
+			cur->next = temp->next;
+			delete temp;
+			break;
+		}
+		c = c + 1;
+		cur = cur->next;
+	}
+}
+
+template<typename T>
+T LinkedList1<T>::getPlayer(int pPos) {
+	int c = 0;
+	Node *cur = head;
+	while (cur) {
+		Player *player;
+		player = &cur->data;
+		int number = player->getPlayerNumber();
+		if (number == pPos && c==0){
+			return head->data;
+			break;
+		}
+		else if (number == pPos) {
+			return cur->data;
+			break;
+		}
+		c = c + 1;
+		cur = cur->next;
+	}
+}
 
 template<typename T>
 T LinkedList1<T>::getData(int pos) {
@@ -221,6 +345,19 @@ T LinkedList1<T>::getData(int pos) {
 		cur = cur->next;
 	}
 
+}
+template<typename T>
+typename LinkedList1<T>::Node* LinkedList1<T>::getNode(int pos) {
+	int c = 0;
+
+	Node* cur = head;
+	while (cur) {
+		if (c == pos) {
+			return cur;
+		}
+		c = c + 1;
+		cur = cur->next;
+	}
 }
 
 

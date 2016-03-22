@@ -7,15 +7,13 @@
 
 #include "Blocks.h"
 
-Blocks::Blocks(int pPosX, int pPosY, int pWidth, int pHeight, int pLevel,
-		int pContactH, int pContactW) {
-	_level = pLevel;
+Blocks::Blocks(int pPosX, int pPosY, int pWidth, int pHeight, int pNumber) {
 	_height = pHeight;
 	_width = pWidth;
 	_posY = pPosY;
 	_posX = pPosX;
-	_contactHeight = pContactH;
-	_contactWidth = pContactW;
+	_number = pNumber;
+
 
 }
 

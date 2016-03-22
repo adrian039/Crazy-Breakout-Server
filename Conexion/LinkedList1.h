@@ -32,10 +32,16 @@ public:
 	void erase(Node *loc);
 	void display();
 	void displayPlayers();
+	void displayPlayersScore();
 	Node *search(T d);
 	int getLenght();
 	void deleteNode(int);
+	void deleteBlock(int);
+	void deletePlayer(int);
+	void deleteBall(int);
+	Node *getNode(int d);
 	T getData(int pos);
+	T getPlayer(int pos);
 
 };
 

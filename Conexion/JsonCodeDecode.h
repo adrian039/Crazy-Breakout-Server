@@ -17,12 +17,13 @@ public:
 	static Json_Code_Decode* getInstance();
 	void getJsonData(string, string);
 	int getInt(Json::Value, string);
+	double getDouble(Json::Value, string);
 	char* getChar(Json::Value, string);
 	string getString(Json::Value, string);
 	Json::Value getJson(string);
 	bool isJson(string);
-	void includeString(string, Json::Value, string);
-	void includeInt(int, Json::Value, string);
+	Json::Value includeString(string, Json::Value, string);
+	Json::Value includeInt(int, Json::Value, string);
 private:
 	Json_Code_Decode() {
 	}

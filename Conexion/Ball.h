@@ -10,7 +10,7 @@
 
 class Ball {
 public:
-	Ball(int, int);
+	Ball(int, int,int);
 	void moreSpeed();
 	int getPosX() {
 		return _posX;
@@ -23,12 +23,17 @@ public:
 	}
 	void setPos(int, int);
 	void setSize(int);
+	int getNumber(){
+		return _number;
+
+	}
 
 private:
 
 	int _posX;
 	int _posY;
 	int _size;
+	int _number;
 
 };
 
